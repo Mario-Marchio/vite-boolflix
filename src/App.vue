@@ -84,6 +84,7 @@ export default {
 </script>
 
 <template>
+  <appHeader />
   <searchbar @term-change="setTitleFilter" @form-submit="searchTitle" />
   <h1>MOVIES</h1>
   <ul v-for="movie in store.movies">
