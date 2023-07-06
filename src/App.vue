@@ -42,6 +42,18 @@ export default {
     getPosterUrlM(movie) {
       return `https://image.tmdb.org/t/p/w342/${movie.poster_path}`;
     },
+    getRatingStars(movie) {
+      const rating = Math.ceil(movie.vote_average / 2);
+      const stars = [];
+      for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+          stars.push('<i class="fa-solid fa-star"></i>');
+        } else {
+          stars.push('<i class="fa-regular fa-star"></i>');
+        }
+      }
+      return stars.join('');
+    },
     hasFlagS(serie) {
       const avaibleFlags = ['it', 'en'];
       return avaibleFlags.includes(serie.original_language)
@@ -53,6 +65,18 @@ export default {
     },
     getPosterUrlS(serie) {
       return `https://image.tmdb.org/t/p/w342/${serie.poster_path}`;
+    },
+    getRatingStars(serie) {
+      const rating = Math.ceil(serie.vote_average / 2);
+      const stars = [];
+      for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+          stars.push('<i class="fa-solid fa-star"></i>');
+        } else {
+          stars.push('<i class="fa-regular fa-star"></i>');
+        }
+      }
+      return stars.join('');
     }
   }
 }
@@ -69,7 +93,7 @@ export default {
       <img v-if="hasFlagM(movie)" :src="flagScrM(movie)" :alt="movie.original_language">
       <span v-else>{{ movie.original_language }}</span>
     </li>
-    <li>{{ movie.vote_average }}</li>
+    <li v-html="getRatingStars(movie)"></li>
     <li><img :src="getPosterUrlM(movie)" :alt="movie.title" /></li>
   </ul>
   <h1>SERIES</h1>
@@ -80,7 +104,7 @@ export default {
       <img v-if="hasFlagS(serie)" :src="flagScrS(serie)" :alt="serie.original_language">
       <span v-else>{{ serie.original_language }}</span>
     </li>
-    <li>{{ serie.vote_average }}</li>
+    <li v-html="getRatingStars(serie)"></li>
     <li><img :src="getPosterUrlS(serie)" :alt="serie.title" /></li>
   </ul>
 </template>
