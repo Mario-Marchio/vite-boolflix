@@ -39,6 +39,9 @@ export default {
       const url = new URL(`./assets/${movie.original_language}.png`, import.meta.url);
       return url.href
     },
+    getPosterUrlM(movie) {
+      return `https://image.tmdb.org/t/p/w342/${movie.poster_path}`;
+    },
     hasFlagS(serie) {
       const avaibleFlags = ['it', 'en'];
       return avaibleFlags.includes(serie.original_language)
@@ -47,6 +50,9 @@ export default {
     flagScrS(serie) {
       const url = new URL(`./assets/${serie.original_language}.png`, import.meta.url);
       return url.href
+    },
+    getPosterUrlS(serie) {
+      return `https://image.tmdb.org/t/p/w342/${serie.poster_path}`;
     }
   }
 }
@@ -64,6 +70,7 @@ export default {
       <span v-else>{{ movie.original_language }}</span>
     </li>
     <li>{{ movie.vote_average }}</li>
+    <li><img :src="getPosterUrlM(movie)" :alt="movie.title" /></li>
   </ul>
   <h1>SERIES</h1>
   <ul v-for="serie in store.series">
@@ -74,6 +81,7 @@ export default {
       <span v-else>{{ serie.original_language }}</span>
     </li>
     <li>{{ serie.vote_average }}</li>
+    <li><img :src="getPosterUrlS(serie)" :alt="serie.title" /></li>
   </ul>
 </template>
 
