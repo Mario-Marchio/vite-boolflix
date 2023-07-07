@@ -86,28 +86,90 @@ export default {
 <template>
   <appHeader />
   <searchbar @term-change="setTitleFilter" @form-submit="searchTitle" />
-  <h1>MOVIES</h1>
-  <ul v-for="movie in store.movies">
-    <li>{{ movie.title }}</li>
-    <li>{{ movie.original_title }}</li>
-    <li>
-      <img v-if="hasFlagM(movie)" :src="flagScrM(movie)" :alt="movie.original_language">
-      <span v-else>{{ movie.original_language }}</span>
-    </li>
-    <li v-html="getRatingStars(movie)"></li>
-    <li><img :src="getPosterUrlM(movie)" :alt="movie.title" /></li>
-  </ul>
-  <h1>SERIES</h1>
-  <ul v-for="serie in store.series">
-    <li>{{ serie.name }}</li>
-    <li>{{ serie.original_name }}</li>
-    <li>
-      <img v-if="hasFlagS(serie)" :src="flagScrS(serie)" :alt="serie.original_language">
-      <span v-else>{{ serie.original_language }}</span>
-    </li>
-    <li v-html="getRatingStars(serie)"></li>
-    <li><img :src="getPosterUrlS(serie)" :alt="serie.title" /></li>
-  </ul>
+  <div class="bg-secondary">
+    <h1>MOVIES :</h1>
+    <div class="row ">
+      <ul v-for="movie in store.movies" :key="movie.id" class="card col-lg-3 m-2 bg-black">
+        <div class="card-image" :style="{ backgroundImage: 'url(' + getPosterUrlM(movie) + ')' }">
+          <div class="bgc-black-o">
+            <div class="d-flex flex-column">
+              <li class="mt-5"> <b>TITOLO : </b> {{ movie.title }}</li>
+              <li class="mt-3"> <b>TITOLO ORIGINALE : </b>{{ movie.original_title }}</li>
+              <div class="d-flex flex-row mt-3">
+                <li><b>VOTO : </b></li>
+                <li v-html="getRatingStars(movie)" class="rating-stars"></li>
+              </div>
+              <li>
+                <img class="flag mt-3" v-if="hasFlagM(movie)" :src="flagScrM(movie)" :alt="movie.original_language">
+                <span v-else>{{ movie.original_language }}</span>
+              </li>
+            </div>
+          </div>
+        </div>
+      </ul>
+      <h1>SERIES :</h1>
+      <ul v-for="serie in store.series" :key="serie.id" class="card col-lg-3 m-2 bg-black">
+        <div class="card-image" :style="{ backgroundImage: 'url(' + getPosterUrlS(serie) + ')' }">
+          <div class="bgc-black-o ">
+            <div class="d-flex flex-column">
+              <li class="mt-5"><b>TITOLO : </b>{{ serie.name }}</li>
+              <li class="mt-3"><b>TITOLO ORIGINALE : </b>{{ serie.original_name }}</li>
+              <div class="d-flex flex-row mt-3">
+                <li><b>VOTO : </b></li>
+                <li v-html="getRatingStars(serie)" class="rating-stars"></li>
+              </div>
+              <li>
+                <img class="flag mt-3" v-if="hasFlagS(serie)" :src="flagScrS(serie)" :alt="serie.original_language">
+                <span v-else>{{ serie.original_language }}</span>
+              </li>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
 </template>
 
-<style></style>
+<style lang="scss">
+ul {
+  list-style-type: none;
+}
+
+li {
+  color: white;
+}
+
+.rating-stars {
+  color: yellow;
+}
+
+.card-image {
+  height: 513px;
+  width: 342px;
+}
+
+.p-0 {
+  padding: 0px
+}
+
+.flag {
+  display: block;
+  height: 50px;
+
+}
+
+.bgc-black-o {
+  background-color: black;
+  opacity: 0.9;
+  height: 513px;
+  display: none;
+}
+
+.card:hover .bgc-black-o {
+  display: block;
+}
+
+.card {
+  width: 23%;
+}
+</style>
